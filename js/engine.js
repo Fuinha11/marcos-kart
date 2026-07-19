@@ -134,18 +134,22 @@ function classificadosFinal(fase) {
     const grupoTemResultado = rk.fase && corridasLancadas(rk.fase) > 0;
     if (!grupoTemResultado) out.prontos = false;
 
-    const semPNC = rk.ranking.filter((r) => !r.isPNC && !r.isWO && !r.isNPC);
     const pncId = fase.pncs ? fase.pncs[g] : null;
+    // Pilotos que competiram (sem PNC/W.O./CPU).
+    const competiram = rk.ranking.filter((r) => !r.isPNC && !r.isWO && !r.isNPC);
+    // W.O. do grupo (não jogaram) — menos quem já é o PNC.
+    const naoJogaram = rk.ranking.filter((r) => r.isWO && r.comp.id !== pncId);
 
     if (fase.id === "fase3") {
       out.porGrupo[g] = {
-        qualificados: semPNC.slice(0, 3).map((r) => r.comp),
+        qualificados: competiram.slice(0, 3).map((r) => r.comp),
         pnc: pncId ? getComp(pncId) : null,
       };
     } else {
-      // fase4: os que sobraram (fora do top 3) + PNC entra aqui também
+      // fase4 "What a Loooooser": todos que ficaram fora da Grande Final —
+      // os pilotos fora do top 3 + os que deram W.O. — e mais o PNC.
       out.porGrupo[g] = {
-        qualificados: semPNC.slice(3).map((r) => r.comp),
+        qualificados: [...competiram.slice(3), ...naoJogaram].map((r) => r.comp),
         pnc: pncId ? getComp(pncId) : null,
       };
     }
