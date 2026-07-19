@@ -48,12 +48,12 @@ const GRUPOS = {
    'participa: false' esconde o piloto (ex.: Sulivan só se confirmar). */
 const COMPETIDORES = [
   // ---------- GRUPO RECOLONIAL (Europa) ----------
-  { id: "rec1", nome: "Marcos",               personagem: "Mario",       emoji: "🔴", cor: "#e4000f", grupo: "recolonial", anfitriao: true },
-  { id: "rec2", nome: "Mademoiselle Sulivan", personagem: "Peach",       emoji: "👑", cor: "#f06292", grupo: "recolonial", participa: true },
-  { id: "rec3", nome: "A definir",            personagem: "Luigi",       emoji: "🟢", cor: "#43b047", grupo: "recolonial" },
-  { id: "rec4", nome: "A definir",            personagem: "Yoshi",       emoji: "🦖", cor: "#7cb342", grupo: "recolonial" },
-  { id: "rec5", nome: "A definir",            personagem: "Toad",        emoji: "🍄", cor: "#039be5", grupo: "recolonial" },
-  { id: "rec6", nome: "A definir",            personagem: "Rosalina",    emoji: "⭐", cor: "#26a69a", grupo: "recolonial" },
+  { id: "rec1", nome: "Marcos",              personagem: "", emoji: "🏍️", cor: "#e4000f", grupo: "recolonial", anfitriao: true },
+  { id: "rec2", nome: "Bruna",               personagem: "", emoji: "💃🏻", cor: "#f06292", grupo: "recolonial" },
+  { id: "rec3", nome: "Sabryna",             personagem: "", emoji: "🍍", cor: "#f9a825", grupo: "recolonial" },
+  { id: "rec4", nome: "Thiagão, aka Vice",   personagem: "", emoji: "🔪", cor: "#039be5", grupo: "recolonial" },
+  { id: "rec5", nome: "Rafael",              personagem: "", emoji: "🎮", cor: "#43b047", grupo: "recolonial" },
+  { id: "rec6", nome: "Hi my name is Julia", personagem: "", emoji: "🍷", cor: "#7b3fa0", grupo: "recolonial" },
 
   // ---------- GRUPO DEFENSORIA DAS ORIGENS (Brasil) ----------
   { id: "def1", nome: "A definir", personagem: "Bowser",       emoji: "🐢", cor: "#2e7d32", grupo: "defensoria" },

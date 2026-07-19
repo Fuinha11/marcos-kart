@@ -331,6 +331,21 @@ table.standings tr.pnc { background:#f3e9fa; font-style: italic; }
 }
 .footer .display { color: var(--yellow); font-size:1.2rem; }
 .footer p { margin: 6px 0; opacity:.9; }
+.footer-rank { margin-top: 18px; }
+.footer-rank-label {
+  display:block; font-size:.78rem; letter-spacing:2px; text-transform:uppercase;
+  opacity:.85; margin-bottom:10px;
+}
+.footer-emojis { display:flex; flex-wrap:wrap; justify-content:center; gap:8px; }
+.footer-emojis .fe {
+  font-size:1.5rem; line-height:1; background:rgba(255,255,255,.12);
+  border-radius:12px; padding:6px 9px; transition:transform .12s; cursor:default;
+}
+.footer-emojis .fe:hover { transform:translateY(-3px) scale(1.12); }
+.footer-emojis .fe.lider {
+  font-size:1.9rem; background:var(--yellow); box-shadow:0 4px 0 rgba(0,0,0,.25);
+}
+.footer-emojis .fe.lider::after { content:" 👑"; font-size:1rem; }
 
 /* ---------- Flyer embed ---------- */
 .flyer-embed { text-align:center; margin: 26px 0; }

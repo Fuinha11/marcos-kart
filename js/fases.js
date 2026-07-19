@@ -39,6 +39,16 @@ function grupoTag(gid) {
   return `<span class="grp-badge ${g.classe}" style="font-size:.64rem; margin:0">${g.nome}</span>`;
 }
 
+/* Subtítulo (personagem) só aparece se existir */
+function pers(c) {
+  return c && c.personagem ? ` <span style="color:#8a7c53">(${c.personagem})</span>` : "";
+}
+
+/* Emoji do piloto (bolinha colorida como fallback) */
+function emojiDe(c) {
+  return c && c.emoji ? c.emoji + " " : "";
+}
+
 /* ---------- Tabela de classificação ---------- */
 function standingsTableHTML(ranking, opts = {}) {
   const top = opts.qualifyTop || 0;
@@ -51,8 +61,7 @@ function standingsTableHTML(ranking, opts = {}) {
         <td class="pos">${i + 1}</td>
         <td>
           <span class="dot" style="background:${r.comp.cor}"></span>
-          ${medalha(i)} <b>${r.comp.nome}</b>
-          <span style="color:#8a7c53">(${r.comp.personagem})</span> ${pncTag}
+          ${medalha(i)} ${emojiDe(r.comp)}<b>${r.comp.nome}</b>${pers(r.comp)} ${pncTag}
         </td>
         <td>${r.vitorias}🏆</td>
         <td class="pts">${r.pontos}</td>
@@ -168,13 +177,13 @@ function chaveFinalHTML(fase) {
       <div class="finalist-row">
         <span class="seed">${i + 1}º</span>
         <span class="dot" style="background:${c.cor}"></span>
-        <b>${c.nome}</b> <span style="color:#8a7c53">(${c.personagem})</span>
+        ${emojiDe(c)}<b>${c.nome}</b>${pers(c)}
       </div>`).join("") || `<p class="empty-note">Definido após a fase de grupo.</p>`;
     const pnc = info.pnc
       ? `<div class="finalist-row" style="border-color:#7b3fa0; background:#f7f0fb">
            <span class="seed">🎭</span>
            <span class="dot" style="background:${info.pnc.cor}"></span>
-           <b>${info.pnc.nome}</b> <span class="tag-pnc">PNC</span>
+           ${emojiDe(info.pnc)}<b>${info.pnc.nome}</b> <span class="tag-pnc">PNC</span>
          </div>`
       : `<div class="finalist-row" style="border-style:dashed">
            <span class="seed">🎭</span> <span style="color:#8a7c53">PNC a escolher pelo grupo</span>
@@ -251,7 +260,7 @@ function classificacaoGeralHTML() {
       <td class="pos">${medalha(i) || i + 1}</td>
       <td>
         <span class="dot" style="background:${a.comp.cor}"></span>
-        <b>${a.comp.nome}</b> <span style="color:#8a7c53">(${a.comp.personagem})</span>
+        ${emojiDe(a.comp)}<b>${a.comp.nome}</b>${pers(a.comp)}
       </td>
       <td>${grupoTag(a.comp.grupo)}</td>
       <td style="text-align:center">${a.melhorPos <= 12 ? a.melhorPos + "º" : "—"}</td>

@@ -1,6 +1,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Marcos Kart — Wii Familii</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🏎️%3C/text%3E%3C/svg%3E" />
 <meta name="description" content="1º Torneio Internacional, Intercontinental e Inter-essante de Marcos Kart — Wii Familii." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -103,9 +104,14 @@
 <footer class="footer">
   <div class="display">QUE VENÇA O MELHOR PILOTO DA WII FAMILII!</div>
   <p>Marcos Kart · 1º Torneio Internacional, Intercontinental e Inter-essante 🏎️💨</p>
+  <div class="footer-rank">
+    <span class="footer-rank-label">🏁 Classificação geral</span>
+    <div class="footer-emojis" id="footer-emojis"></div>
+  </div>
 </footer>
 
 <script src="js/data.js"></script>
+<script src="js/engine.js"></script>
 <script>
   document.getElementById("local").textContent = TORNEIO.local;
   document.getElementById("data").textContent = TORNEIO.data;
@@ -122,4 +128,5 @@
       </div>`)
     .join("");
 </script>
+<script src="js/footer.js"></script>
 <script src="js/background.js"></script>
