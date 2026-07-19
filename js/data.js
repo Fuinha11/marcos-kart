@@ -56,13 +56,13 @@ const COMPETIDORES = [
   { id: "rec6", nome: "Hi my name is Julia", personagem: "", emoji: "🍷", cor: "#7b3fa0", grupo: "recolonial" },
 
   // ---------- GRUPO DEFENSORIA DAS ORIGENS (Brasil) ----------
-  { id: "def1", nome: "A definir", personagem: "Bowser",       emoji: "🐢", cor: "#2e7d32", grupo: "defensoria" },
-  { id: "def2", nome: "A definir", personagem: "Donkey Kong",  emoji: "🦍", cor: "#6d4c41", grupo: "defensoria" },
-  { id: "def3", nome: "A definir", personagem: "Wario",        emoji: "💰", cor: "#f9a825", grupo: "defensoria" },
-  { id: "def4", nome: "A definir", personagem: "Waluigi",      emoji: "🍆", cor: "#6a1b9a", grupo: "defensoria" },
-  { id: "def5", nome: "A definir", personagem: "Daisy",        emoji: "🌼", cor: "#fb8c00", grupo: "defensoria" },
-  { id: "def6", nome: "A definir", personagem: "Koopa Troopa", emoji: "🐢", cor: "#9ccc65", grupo: "defensoria" },
-  { id: "def7", nome: "A definir", personagem: "Bowser Jr.",   emoji: "🖌️", cor: "#ef6c00", grupo: "defensoria" },
+  { id: "def1", nome: "Gu",       personagem: "", emoji: "👶🏻", cor: "#2e7d32", grupo: "defensoria" },
+  { id: "def2", nome: "Gui",      personagem: "", emoji: "🩺", cor: "#00897b", grupo: "defensoria" },
+  { id: "def3", nome: "Daniboy",  personagem: "", emoji: "💪🏾", cor: "#6d4c41", grupo: "defensoria" },
+  { id: "def4", nome: "Rena",     personagem: "", emoji: "💅🏻", cor: "#ec407a", grupo: "defensoria" },
+  { id: "def5", nome: "Brunão",   personagem: "", emoji: "🧠", cor: "#5e35b1", grupo: "defensoria" },
+  { id: "def6", nome: "Mari",     personagem: "", emoji: "🎨", cor: "#fb8c00", grupo: "defensoria" },
+  { id: "def7", nome: "Paulinha", personagem: "", emoji: "🍁", cor: "#c62828", grupo: "defensoria" },
 ];
 
 /* --- Modelos dos 3 torneios de cada fase ---
