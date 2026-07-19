@@ -55,6 +55,17 @@
     </div>
   </section>
 
+  <!-- FLYER (aparece sozinho quando assets/flyer.png existir) -->
+  <section class="section" id="flyer-section" style="text-align:center; display:none">
+    <h2 class="section-title">O Convite</h2>
+    <p class="section-sub">O flyer oficial da Wii Familii 🏁</p>
+    <div class="flyer-embed">
+      <img src="assets/flyer.png" alt="Flyer do 1º Torneio de Marcos Kart"
+           onload="document.getElementById('flyer-section').style.display='block'"
+           onerror="var s=document.getElementById('flyer-section'); if(s) s.remove();" />
+    </div>
+  </section>
+
   <!-- SOBRE -->
   <section class="section">
     <h2 class="section-title">A Competição</h2>
@@ -93,10 +104,6 @@
   <section class="section" style="text-align:center">
     <a class="btn" href="fases.html">Ver as fases &amp; chaves 🏁</a>
     <a class="btn navy" href="regras.html">Ler o regulamento da CARÁI 🏛️</a>
-    <div class="flyer-embed">
-      <!-- Salve o flyer como assets/flyer.png para ele aparecer aqui -->
-      <img src="assets/flyer.png" alt="Flyer do Marcos Kart" onerror="this.parentNode.style.display='none'" />
-    </div>
   </section>
 
 </div>
