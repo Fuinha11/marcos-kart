@@ -100,7 +100,7 @@ const FASES = [
     id: "fase1",
     nome: "Fase 1 — Grupo Recolonial",
     icon: "🌍",
-    status: "passada",
+    status: "atual",
     tipo: "grupo",
     grupo: "recolonial",
     descricao: "Os recolonizados abrem a temporada. Top 3 avançam para a Grande Final.",
@@ -113,24 +113,9 @@ const FASES = [
       ],
     },
     copas: [
-      { ...COPAS_GRUPO[0], corridas: [
-        ["rec1","rec3","rec2","rec5","rec4","rec6"],
-        ["rec2","rec1","rec4","rec3","rec6","rec5"],
-        ["rec3","rec2","rec1","rec6","rec5","rec4"],
-        ["rec1","rec2","rec3","rec4","rec5","rec6"],
-      ]},
-      { ...COPAS_GRUPO[1], corridas: [
-        ["rec2","rec3","rec1","rec5","rec6","rec4"],
-        ["rec1","rec4","rec2","rec3","rec5","rec6"],
-        ["rec4","rec1","rec3","rec2","rec6","rec5"],
-        ["rec2","rec1","rec5","rec3","rec4","rec6"],
-      ]},
-      { ...COPAS_GRUPO[2], corridas: [
-        ["rec1","rec2","rec4","rec3","rec6","rec5"],
-        ["rec3","rec1","rec2","rec4","rec5","rec6"],
-        ["rec2","rec4","rec1","rec6","rec3","rec5"],
-        ["rec1","rec3","rec2","rec5","rec4","rec6"],
-      ]},
+      { ...COPAS_GRUPO[0], corridas: [] },
+      { ...COPAS_GRUPO[1], corridas: [] },
+      { ...COPAS_GRUPO[2], corridas: [] },
     ],
   },
 
@@ -139,10 +124,10 @@ const FASES = [
     id: "fase2",
     nome: "Fase 2 — Defensoria das Origens",
     icon: "🇧🇷",
-    status: "atual",
+    status: "futura",
     tipo: "grupo",
     grupo: "defensoria",
-    descricao: "O hu3 hu3 entra na pista. Copa Cogumelo em andamento — faltam Flor de Fogo e a Secreta.",
+    descricao: "O hu3 hu3 defende a tradição. Top 3 avançam para a Grande Final.",
     quando: {
       data: "Domingo, 19/07",
       horarios: [
@@ -152,14 +137,9 @@ const FASES = [
       ],
     },
     copas: [
-      { ...COPAS_GRUPO[0], corridas: [
-        ["def1","def2","def3","def4","def5","def6","def7"],
-        ["def2","def1","def4","def3","def6","def5","def7"],
-        ["def3","def2","def1","def5","def4","def7","def6"],
-        ["def1","def3","def2","def6","def5","def4","def7"],
-      ]},
-      { ...COPAS_GRUPO[1], corridas: [] }, // ainda não disputada
-      { ...COPAS_GRUPO[2], corridas: [] }, // ainda não disputada
+      { ...COPAS_GRUPO[0], corridas: [] },
+      { ...COPAS_GRUPO[1], corridas: [] },
+      { ...COPAS_GRUPO[2], corridas: [] },
     ],
   },
 
