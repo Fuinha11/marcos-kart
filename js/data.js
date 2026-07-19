@@ -70,9 +70,9 @@ const COMPETIDORES = [
    (o último colocado do torneio anterior escolhe o próximo).
    O que muda de forma fixa é a CILINDRADA, que vai aumentando. */
 const COPAS_TEMPLATE = [
-  { nome: "A escolher na hora", cc: "100cc", icon: "🎲", classe: "secreta" },
-  { nome: "A escolher na hora", cc: "150cc", icon: "🎲", classe: "secreta" },
-  { nome: "A escolher na hora", cc: "200cc", icon: "🎲", classe: "secreta" },
+  { nome: "A escolher na hora", cc: "100cc",       icon: "🎲", classe: "secreta" },
+  { nome: "A escolher na hora", cc: "150cc",       icon: "🎲", classe: "secreta" },
+  { nome: "A escolher na hora", cc: "cc surpresa", icon: "❓", classe: "secreta" },
 ];
 
 /* ============================================================
