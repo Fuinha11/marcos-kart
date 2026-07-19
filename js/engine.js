@@ -12,7 +12,9 @@
 
 /* Busca um competidor pelo id */
 function getComp(id) {
-  return COMPETIDORES.find((c) => c.id === id) || { id, nome: id, personagem: "", cor: "#999", emoji: "❔" };
+  return COMPETIDORES.find((c) => c.id === id) ||
+    (typeof NPCS !== "undefined" && NPCS.find((c) => c.id === id)) ||
+    { id, nome: id, personagem: "", cor: "#999", emoji: "❔" };
 }
 
 /* PNCs de uma fase (lista de ids), a partir de fase.pncs {grupo: id} */
@@ -23,7 +25,7 @@ function pncsDaFase(fase) {
 
 /* Total de corridas já lançadas numa fase */
 function corridasLancadas(fase) {
-  return fase.copas.reduce((n, c) => n + (c.corridas ? c.corridas.length : 0), 0);
+  return fase.copas.reduce((n, c) => n + (c.placar ? 4 : (c.corridas ? c.corridas.length : 0)), 0);
 }
 
 /* Pontos de uma posição (0 = 1º lugar) */
@@ -45,30 +47,59 @@ function calcularFase(fase) {
   const total = {};
 
   function garante(id) {
-    if (!total[id]) total[id] = { comp: getComp(id), pontos: 0, vitorias: 0, corridas: 0, isPNC: pncs.includes(id) };
+    if (!total[id]) {
+      const comp = getComp(id);
+      total[id] = { comp, pontos: 0, vitorias: 0, corridas: 0, isPNC: pncs.includes(id), isWO: !!comp.wo, isNPC: !!comp.npc };
+    }
     return total[id];
   }
 
   const porCopa = fase.copas.map((copa) => {
     const pontosCopa = {};
-    (copa.corridas || []).forEach((ordem) => {
-      ordem.forEach((id, pos) => {
-        const reg = garante(id);
-        const pts = reg.isPNC ? 0 : pontosPosicao(pos);
+    if (copa.placar) {
+      // Resultado FINAL lançado direto (espelha a tela do jogo).
+      // CPUs ocupam posição e pontuam como no jogo — roubam pontos dos pilotos.
+      copa.placar.forEach((e) => {
+        const reg = garante(e.id);
+        const pts = reg.isPNC ? 0 : e.pts;
         reg.pontos += pts;
-        reg.corridas += 1;
-        if (pos === 0) reg.vitorias += 1;
-        pontosCopa[id] = (pontosCopa[id] || 0) + pts;
+        pontosCopa[e.id] = (pontosCopa[e.id] || 0) + pts;
       });
-    });
+    } else {
+      // Ordem de chegada corrida a corrida (12 karts). Pontos pela colocação
+      // ABSOLUTA: o CPU que chega na frente tira os pontos do piloto.
+      (copa.corridas || []).forEach((ordem) => {
+        ordem.forEach((id, pos) => {
+          const reg = garante(id);
+          reg.corridas += 1;
+          const pts = reg.isPNC ? 0 : pontosPosicao(pos);
+          reg.pontos += pts;
+          if (pos === 0 && !reg.isPNC) reg.vitorias += 1;
+          pontosCopa[id] = (pontosCopa[id] || 0) + pts;
+        });
+      });
+    }
     return { ...copa, pontosCopa };
   });
 
-  const ranking = Object.values(total).sort((a, b) => {
-    if (b.pontos !== a.pontos) return b.pontos - a.pontos;
-    if (b.vitorias !== a.vitorias) return b.vitorias - a.vitorias;
-    return a.comp.nome.localeCompare(b.comp.nome);
-  });
+  // W.O.: membros do grupo que não compareceram entram na classificação
+  // por último, sem pontos (só depois que a fase já tem resultado).
+  if (fase.tipo === "grupo" && fase.grupo && corridasLancadas(fase) > 0) {
+    COMPETIDORES
+      .filter((c) => c.grupo === fase.grupo && c.wo)
+      .forEach((c) => garante(c.id));
+  }
+
+  // Classificação da fase = só os pilotos (CPUs não contam para o placar
+  // geral). W.O. sempre por último.
+  const ranking = Object.values(total)
+    .filter((r) => !r.isNPC)
+    .sort((a, b) => {
+      if (!!a.isWO !== !!b.isWO) return a.isWO ? 1 : -1;
+      if (b.pontos !== a.pontos) return b.pontos - a.pontos;
+      if (b.vitorias !== a.vitorias) return b.vitorias - a.vitorias;
+      return a.comp.nome.localeCompare(b.comp.nome);
+    });
 
   return { porCopa, total, ranking };
 }
@@ -85,7 +116,7 @@ function rankingDoGrupo(grupoId) {
 
 /* Top N (apenas quem pontua) de um grupo */
 function topDoGrupo(grupoId, n = 3) {
-  return rankingDoGrupo(grupoId).ranking.filter((r) => !r.isPNC).slice(0, n);
+  return rankingDoGrupo(grupoId).ranking.filter((r) => !r.isPNC && !r.isWO && !r.isNPC).slice(0, n);
 }
 
 /* ------------------------------------------------------------
@@ -103,7 +134,7 @@ function classificadosFinal(fase) {
     const grupoTemResultado = rk.fase && corridasLancadas(rk.fase) > 0;
     if (!grupoTemResultado) out.prontos = false;
 
-    const semPNC = rk.ranking.filter((r) => !r.isPNC);
+    const semPNC = rk.ranking.filter((r) => !r.isPNC && !r.isWO && !r.isNPC);
     const pncId = fase.pncs ? fase.pncs[g] : null;
 
     if (fase.id === "fase3") {
@@ -130,18 +161,36 @@ function classificadosFinal(fase) {
 function rankingPorCopa(fase, idx) {
   const pncs = pncsDaFase(fase);
   const map = {};
-  const corridas = (fase.copas[idx] && fase.copas[idx].corridas) || [];
-  corridas.forEach((ordem) => {
-    ordem.forEach((id, pos) => {
-      if (!map[id]) map[id] = { comp: getComp(id), pontos: 0, vitorias: 0, corridas: 0, isPNC: pncs.includes(id) };
-      map[id].pontos += map[id].isPNC ? 0 : pontosPosicao(pos);
-      map[id].corridas += 1;
-      if (pos === 0) map[id].vitorias += 1;
+  const copa = fase.copas[idx] || {};
+  function garante(id) {
+    if (!map[id]) {
+      const comp = getComp(id);
+      map[id] = { comp, pontos: 0, vitorias: 0, corridas: 0, isPNC: pncs.includes(id), isWO: !!comp.wo, isNPC: !!comp.npc };
+    }
+    return map[id];
+  }
+  if (copa.placar) {
+    // Resultado final: CPUs entram interligados, com os pontos reais do jogo.
+    copa.placar.forEach((e) => {
+      const reg = garante(e.id);
+      reg.pontos += reg.isPNC ? 0 : e.pts;
     });
-  });
+  } else {
+    (copa.corridas || []).forEach((ordem) => {
+      ordem.forEach((id, pos) => {
+        const reg = garante(id);
+        reg.corridas += 1;
+        reg.pontos += reg.isPNC ? 0 : pontosPosicao(pos);
+        if (pos === 0 && !reg.isPNC) reg.vitorias += 1;
+      });
+    });
+  }
+  // Aba de torneio mostra o grid COMPLETO como no jogo (CPUs incluídos);
+  // só os W.O. ficam por último. Empate no ponto → ordem alfabética
+  // (espelha a tela do jogo; não usa vitórias como desempate).
   return Object.values(map).sort((a, b) => {
+    if (!!a.isWO !== !!b.isWO) return a.isWO ? 1 : -1;
     if (b.pontos !== a.pontos) return b.pontos - a.pontos;
-    if (b.vitorias !== a.vitorias) return b.vitorias - a.vitorias;
     return a.comp.nome.localeCompare(b.comp.nome);
   });
 }
@@ -157,6 +206,7 @@ function classificacaoGeral() {
   FASES.forEach((fase) => {
     if (corridasLancadas(fase) === 0) return;
     calcularFase(fase).ranking.forEach((r, i) => {
+      if (r.isNPC) return; // CPUs não entram na classificação geral
       const id = r.comp.id;
       if (!acc[id]) acc[id] = { comp: r.comp, pontosTotais: 0, melhorPos: Infinity, fases: 0 };
       acc[id].pontosTotais += r.pontos;

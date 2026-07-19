@@ -46,7 +46,8 @@
     const cards = pilotos.map((p) => {
       const tbd = p.nome === "A definir" ? "tbd" : "";
       return `
-        <div class="card pilot" style="--pcolor:${p.cor}">
+        <div class="card pilot${p.wo ? " wo" : ""}" style="--pcolor:${p.cor}">
+          ${p.wo ? `<div class="wo-ribbon">W.O.</div>` : ""}
           <div class="avatar">${p.emoji}</div>
           <div class="nome ${tbd}">${p.nome}${p.anfitriao ? " 🎙️" : ""}</div>
           ${p.personagem ? `<div class="personagem">${p.personagem}</div>` : ""}

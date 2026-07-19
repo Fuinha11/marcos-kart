@@ -194,6 +194,12 @@ a { color: var(--navy); }
 .grp-recolonial { background: var(--blue); }
 .grp-defensoria { background: var(--green); }
 .pilot .tbd { opacity:.6; }
+.pilot.wo { opacity:.6; filter: grayscale(.55); }
+.pilot.wo .wo-ribbon {
+  position:absolute; top:14px; right:-38px; transform:rotate(45deg);
+  background: var(--red); color:#fff; font-weight:700; letter-spacing:2px;
+  font-size:.72rem; padding:3px 44px; box-shadow: var(--shadow);
+}
 
 .group-header {
   display:flex; align-items:center; gap:12px; margin: 30px 0 14px;
@@ -299,6 +305,15 @@ table.standings .pos { font-family:"Luckiest Guy",cursive; color:var(--navy); wi
 table.standings .pts { font-weight:700; text-align:right; color: var(--red); }
 table.standings tr.qualif { background:#eaf7ea; }
 table.standings tr.pnc { background:#f3e9fa; font-style: italic; }
+table.standings tr.wo { background:#f3f0e8; font-style: italic; color:#8a7c53; }
+table.standings tr.npc { color:#8a8a8a; }
+table.standings tr.npc .pts { color:#b0b0b0; }
+.tag-npc { background:#8a8a8a; color:#fff; font-size:.62rem; font-weight:700; letter-spacing:1px; padding:2px 7px; border-radius:999px; margin-left:6px; text-transform:uppercase; }
+.tag-grupo {
+  display:inline-block; color:#fff; font-size:.62rem; font-weight:700; letter-spacing:1px;
+  padding:3px 10px; border-radius:999px; text-transform:uppercase; white-space:nowrap;
+  box-shadow: var(--shadow);
+}
 .medal { margin-right: 4px; }
 .dot { width:10px; height:10px; border-radius:50%; display:inline-block; margin-right:6px; vertical-align:middle; }
 

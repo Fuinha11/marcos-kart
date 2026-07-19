@@ -36,7 +36,7 @@ function horariosHTML(fase) {
 function grupoTag(gid) {
   const g = GRUPOS[gid];
   if (!g) return "";
-  return `<span class="grp-badge ${g.classe}" style="font-size:.64rem; margin:0">${g.nome}</span>`;
+  return `<span class="tag-grupo ${g.classe}">${g.nome}</span>`;
 }
 
 /* Subtítulo (personagem) só aparece se existir */
@@ -53,15 +53,24 @@ function emojiDe(c) {
 function standingsTableHTML(ranking, opts = {}) {
   const top = opts.qualifyTop || 0;
   if (!ranking.length) return `<p class="empty-note">Sem corridas lançadas neste torneio ainda.</p>`;
-  const rows = ranking.map((r, i) => {
-    const cls = r.isPNC ? "pnc" : (top && i < top ? "qualif" : "");
+  let pos = 0;        // colocação no grid (pilotos + CPUs), só W.O. fica de fora
+  let posPiloto = 0;  // colocação contando só os pilotos (para o corte de classificação)
+  const rows = ranking.map((r) => {
+    if (!r.isWO) pos++;
+    const piloto = !r.isNPC && !r.isWO && !r.isPNC;
+    if (piloto) posPiloto++;
+    const cls = r.isWO ? "wo" : r.isNPC ? "npc" : r.isPNC ? "pnc" : (top && piloto && posPiloto <= top ? "qualif" : "");
     const pncTag = r.isPNC ? `<span class="tag-pnc">PNC · não pontua</span>` : "";
+    const woTag  = r.isWO  ? `<span class="tag-wo">W.O. · não compareceu</span>` : "";
+    const npcTag = r.isNPC ? `<span class="tag-npc">CPU</span>` : "";
+    const posCol = r.isWO ? "—" : pos;
+    const medal  = r.isWO ? "" : medalha(pos - 1);
     return `
       <tr class="${cls}">
-        <td class="pos">${i + 1}</td>
+        <td class="pos">${posCol}</td>
         <td>
           <span class="dot" style="background:${r.comp.cor}"></span>
-          ${medalha(i)} ${emojiDe(r.comp)}<b>${r.comp.nome}</b>${pers(r.comp)} ${pncTag}
+          ${medal} ${emojiDe(r.comp)}<b>${r.comp.nome}</b>${pers(r.comp)} ${pncTag}${woTag}${npcTag}
         </td>
         <td>${r.vitorias}🏆</td>
         <td class="pts">${r.pontos}</td>
@@ -78,12 +87,13 @@ function standingsTableHTML(ranking, opts = {}) {
 function tabsHTML(fase) {
   const tabs = fase.copas.map((c, i) => {
     const n = (c.corridas || []).length;
+    const corr = c.placar ? "resultado final" : `${n}/4 corridas`;
     return `
       <button class="tab-btn" data-fase="${fase.id}" data-view="${i}">
         <b>${i + 1}º torneio</b><br />
         <span class="tab-cc">${c.cc}</span><br />
         <span class="tab-nome">${c.nome}</span><br />
-        <span class="tab-corr">${n}/4 corridas</span>
+        <span class="tab-corr">${corr}</span>
       </button>`;
   }).join("");
   return `
@@ -126,18 +136,20 @@ function copasResumoHTML(calc) {
     <div class="copas" style="margin-top:14px">
       ${calc.porCopa.map((copa, i) => {
         const nCorr = (copa.corridas || []).length;
+        const temResultado = copa.placar ? true : nCorr > 0;
         let vencedor = "—";
-        if (nCorr) {
+        if (temResultado) {
           const top = Object.entries(copa.pontosCopa).sort((a, b) => b[1] - a[1])[0];
           if (top) vencedor = `${getComp(top[0]).nome} <span style="color:#8a7c53">(${top[1]} pts)</span>`;
         }
+        const linha = copa.placar ? "resultado final" : `${nCorr}/4 corridas`;
         return `
           <div class="copa ${copa.classe}">
             <div class="num">${i + 1}º</div>
             <div class="icon">${copa.icon}</div>
             <div class="cc">${copa.cc}</div>
             <div style="margin-top:8px; font-size:.85rem">
-              ${nCorr ? `${nCorr}/4 corridas<br />🥇 ${vencedor}` : `<span style="color:#8a7c53">a escolher na hora</span>`}
+              ${temResultado ? `${linha}<br />🥇 ${vencedor}` : `<span style="color:#8a7c53">a escolher na hora</span>`}
             </div>
           </div>`;
       }).join("")}
