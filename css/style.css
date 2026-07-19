@@ -1,0 +1,344 @@
+/* ============================================================
+   MARCOS KART — WII FAMILII
+   Tema inspirado no flyer oficial: pergaminho + faixas navy/vermelho
+   + chalkboard + itens do Mario Kart.
+   ============================================================ */
+
+:root {
+  --parchment:   #f3e7c9;
+  --parchment-2: #ece0bf;
+  --ink:         #26210f;
+  --navy:        #1b2a6b;
+  --navy-2:      #16205a;
+  --red:         #d8262b;
+  --red-2:       #b71c1c;
+  --yellow:      #fbd000;
+  --green:       #43b047;
+  --blue:        #049cd8;
+  --purple:      #7b3fa0;
+  --chalk:       #191919;
+  --card:        #fffdf6;
+  --shadow:      0 6px 0 rgba(0,0,0,.18);
+  --radius:      16px;
+  --maxw:        1120px;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: "Fredoka", system-ui, "Segoe UI", sans-serif;
+  color: var(--ink);
+  background-color: var(--parchment);
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255,255,255,.5), transparent 40%),
+    radial-gradient(circle at 88% 82%, rgba(0,0,0,.05), transparent 45%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='60' height='60' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  line-height: 1.5;
+}
+
+.display { font-family: "Luckiest Guy", "Fredoka", cursive; letter-spacing: .5px; font-weight: 400; }
+
+a { color: var(--navy); }
+
+/* ---------- Checkered strip ---------- */
+.checkers {
+  height: 14px;
+  background-image:
+    linear-gradient(45deg, #111 25%, transparent 25%, transparent 75%, #111 75%),
+    linear-gradient(45deg, #111 25%, #fff 25%, #fff 75%, #111 75%);
+  background-size: 28px 28px;
+  background-position: 0 0, 14px 14px;
+  background-color: #fff;
+}
+
+/* ---------- Nav ---------- */
+.nav {
+  position: sticky; top: 0; z-index: 50;
+  background: var(--navy);
+  border-bottom: 4px solid var(--yellow);
+}
+.nav-inner {
+  max-width: var(--maxw); margin: 0 auto;
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 18px; flex-wrap: wrap;
+}
+.brand {
+  display: flex; align-items: center; gap: 10px;
+  color: #fff; text-decoration: none; margin-right: auto;
+}
+.brand .logo {
+  font-size: 1.5rem;
+  background: var(--red); color: #fff;
+  padding: 4px 10px; border-radius: 10px;
+  border: 3px solid #fff; box-shadow: var(--shadow);
+  line-height: 1;
+}
+.brand .logo-sub { font-size: .72rem; opacity: .85; letter-spacing: 2px; }
+.brand .display { font-size: 1.25rem; color: #fff; text-shadow: 2px 2px 0 rgba(0,0,0,.35); }
+.nav a.link {
+  color: #fff; text-decoration: none; font-weight: 600;
+  padding: 8px 14px; border-radius: 10px; transition: .15s;
+}
+.nav a.link:hover { background: rgba(255,255,255,.15); }
+.nav a.link.active { background: var(--yellow); color: var(--navy-2); }
+
+/* ---------- Layout ---------- */
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 28px 18px 64px; }
+.section { margin: 42px 0; }
+.section-title {
+  font-size: clamp(1.6rem, 4vw, 2.6rem);
+  color: var(--navy); text-transform: uppercase;
+  text-shadow: 2px 2px 0 var(--yellow);
+  margin: 0 0 6px;
+}
+.section-sub { color: #6b5f3e; margin: 0 0 22px; font-weight: 500; }
+
+/* ---------- Banners (flyer style) ---------- */
+.ribbon {
+  display: inline-block; background: var(--navy); color: #fff;
+  padding: 6px 22px; border-radius: 999px;
+  border: 3px solid #fff; box-shadow: var(--shadow);
+  font-size: .95rem; letter-spacing: 2px; text-transform: uppercase;
+}
+.ribbon.red { background: var(--red); }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  background: var(--chalk);
+  border: 6px solid #fff;
+  border-radius: 24px;
+  box-shadow: 0 10px 0 rgba(0,0,0,.25);
+  padding: 40px 26px 34px;
+  text-align: center;
+  overflow: hidden;
+}
+.hero::before, .hero::after {
+  content: ""; position: absolute; top: 16px; width: 54px; height: 54px;
+  background-image:
+    linear-gradient(45deg,#111 25%,transparent 25%,transparent 75%,#111 75%),
+    linear-gradient(45deg,#111 25%,#fff 25%,#fff 75%,#111 75%);
+  background-size: 18px 18px; background-position: 0 0, 9px 9px; background-color:#fff;
+  border-radius: 6px; transform: rotate(-8deg);
+}
+.hero::before { left: 18px; }
+.hero::after { right: 18px; transform: rotate(8deg); }
+.hero .kicker { color: var(--yellow); letter-spacing: 3px; font-weight: 700; }
+.hero h1 { margin: 8px 0; line-height: .98; }
+.hero .t1 { display:block; font-size: clamp(1.6rem,5vw,2.6rem); color: var(--yellow); }
+.hero .t2 { display:block; font-size: clamp(1.4rem,4.4vw,2.2rem); color: var(--blue); }
+.hero .t3 { display:block; font-size: clamp(1.4rem,4.4vw,2.2rem); color: var(--green); }
+.hero .t-marcos {
+  display:block; font-size: clamp(2.6rem,9vw,5rem); margin-top: 6px;
+}
+.hero .t-marcos .w { color:#fff; text-shadow: 3px 3px 0 rgba(0,0,0,.5); }
+.hero .t-marcos .k { color: var(--red); text-shadow: 3px 3px 0 rgba(0,0,0,.5); }
+.hero .tagline { color:#f4e9c7; font-weight:600; margin-top: 14px; font-size: 1.05rem; }
+
+/* ---------- Info chips row ---------- */
+.info-grid {
+  display: grid; grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+  gap: 16px; margin-top: 22px;
+}
+.info-card {
+  background: var(--card); border: 4px solid var(--navy);
+  border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow);
+}
+.info-card h3 { margin: 0 0 8px; color: var(--red); font-size: 1rem; letter-spacing:1px; text-transform: uppercase;}
+.info-card .big { font-family:"Luckiest Guy",cursive; font-size: 1.6rem; color: var(--navy); }
+.time-row { display:flex; align-items:center; gap:10px; margin:4px 0; }
+.time-row .flag { font-size:1.3rem; }
+.time-row .hr { font-family:"Luckiest Guy",cursive; color: var(--green); font-size:1.2rem; }
+.time-row.brasilia .hr{color:var(--green);}
+.time-row.lisboa .hr{color:var(--blue);}
+.time-row.alemanha .hr{color:var(--red);}
+
+/* ---------- Generic cards ---------- */
+.cards {
+  display: grid; grid-template-columns: repeat(auto-fill,minmax(240px,1fr));
+  gap: 18px;
+}
+.card {
+  background: var(--card); border: 4px solid var(--ink);
+  border-radius: var(--radius); box-shadow: var(--shadow);
+  padding: 18px; transition: transform .12s;
+}
+.card:hover { transform: translateY(-3px); }
+
+/* ---------- Competitor cards ---------- */
+.pilot {
+  text-align: center; position: relative; overflow: hidden;
+  border-color: var(--pcolor, var(--navy));
+}
+.pilot .avatar {
+  width: 84px; height: 84px; border-radius: 50%;
+  display: grid; place-items: center; margin: 4px auto 10px;
+  font-size: 2.4rem; color:#fff;
+  background: var(--pcolor, var(--navy));
+  border: 4px solid #fff; box-shadow: var(--shadow);
+}
+.pilot .nome { font-family:"Luckiest Guy",cursive; font-size: 1.25rem; color: var(--navy); }
+.pilot .personagem { color:#6b5f3e; font-weight:600; font-size:.9rem; }
+.pilot .grp-badge {
+  display:inline-block; margin-top:10px; padding:3px 12px; border-radius:999px;
+  font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; color:#fff;
+}
+.grp-recolonial { background: var(--blue); }
+.grp-defensoria { background: var(--green); }
+.pilot .tbd { opacity:.6; }
+
+.group-header {
+  display:flex; align-items:center; gap:12px; margin: 30px 0 14px;
+}
+.group-header .tag {
+  padding:6px 16px; border-radius:999px; color:#fff; font-weight:700;
+  text-transform:uppercase; letter-spacing:1px; box-shadow: var(--shadow);
+}
+
+/* ---------- Rules ---------- */
+.rule {
+  background: var(--card); border-left: 8px solid var(--red);
+  border-radius: 12px; padding: 16px 20px; margin: 14px 0; box-shadow: var(--shadow);
+}
+.rule h3 { margin: 0 0 6px; color: var(--navy); }
+.rule.pnc { border-left-color: var(--purple); background: #f7f0fb; }
+.rule.carai { border-left-color: var(--yellow); background: #fffbe6; }
+.pill {
+  display:inline-block; background: var(--yellow); color: var(--navy-2);
+  font-weight:700; padding:2px 10px; border-radius:999px; font-size:.8rem;
+}
+
+/* ---------- Copas (torneios) ---------- */
+.copas { display:grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
+.copa {
+  background: var(--card); border: 4px solid var(--navy); border-radius: var(--radius);
+  padding: 18px; text-align:center; box-shadow: var(--shadow);
+}
+.copa .num { font-family:"Luckiest Guy",cursive; font-size:1.4rem; color:var(--navy); }
+.copa .icon { font-size: 2.6rem; margin: 6px 0; }
+.copa .cc { display:inline-block; background:var(--ink); color:var(--yellow); padding:2px 10px; border-radius:8px; font-size:.8rem; font-weight:700;}
+.copa.secreta { border-style: dashed; border-color: var(--purple); }
+.copa.secreta .icon { color: var(--purple); }
+
+/* ============================================================
+   FASES — timeline (passada | atual | futura)
+   ============================================================ */
+.fase-atual-destaque {
+  background: linear-gradient(135deg, var(--navy), var(--navy-2));
+  color:#fff; border: 6px solid var(--yellow); border-radius: 22px;
+  padding: 26px; box-shadow: 0 10px 0 rgba(0,0,0,.25); text-align:center;
+  position: relative;
+}
+.fase-atual-destaque .flag-now {
+  position:absolute; top:-16px; left:50%; transform:translateX(-50%);
+  background: var(--red); color:#fff; padding:5px 20px; border-radius:999px;
+  border:3px solid #fff; font-weight:700; text-transform:uppercase; letter-spacing:2px; font-size:.8rem;
+}
+.fase-atual-destaque h2 { font-family:"Luckiest Guy",cursive; font-size: clamp(1.6rem,4vw,2.4rem); margin:8px 0; }
+.fase-atual-destaque .btn { margin-top: 12px; }
+
+.timeline {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 22px; margin-top: 26px;
+}
+.timeline-col h3 {
+  font-family:"Luckiest Guy",cursive; color: var(--navy); font-size:1.2rem;
+  border-bottom: 4px dotted var(--navy); padding-bottom:6px; margin-bottom:14px;
+}
+.timeline-col.passadas h3::before { content:"⬅️ "; }
+.timeline-col.proximas { text-align: right; }
+.timeline-col.proximas h3::after { content:" ➡️"; }
+
+.fase-card {
+  display:flex; align-items:center; gap:14px; width:100%;
+  background: var(--card); border: 4px solid var(--ink); border-radius: 14px;
+  padding: 14px 16px; margin-bottom: 14px; cursor: pointer; text-align:left;
+  box-shadow: var(--shadow); transition: transform .12s, border-color .12s;
+  font-family: inherit; font-size: 1rem; color: var(--ink);
+}
+.fase-card:hover { transform: translateY(-3px); border-color: var(--red); }
+.fase-card.is-selected { border-color: var(--yellow); background:#fffbe6; }
+.fase-card .fc-icon {
+  min-width: 52px; height:52px; border-radius:12px; display:grid; place-items:center;
+  font-size:1.6rem; color:#fff; background: var(--navy);
+}
+.fase-card.passada .fc-icon { background: #9a8f6b; }
+.fase-card.futura  .fc-icon { background: var(--blue); }
+.fase-card .fc-nome { font-weight:700; color: var(--navy); }
+.fase-card .fc-meta { font-size:.82rem; color:#6b5f3e; }
+.timeline-col.proximas .fase-card { flex-direction: row-reverse; text-align:right; }
+
+/* ---------- Bracket / chave detail ---------- */
+.detalhe {
+  margin-top: 34px; background: var(--card); border: 5px solid var(--navy);
+  border-radius: 20px; padding: 24px; box-shadow: var(--shadow); scroll-margin-top: 90px;
+}
+.detalhe .det-head { display:flex; align-items:center; gap:14px; flex-wrap:wrap; margin-bottom: 8px; }
+.detalhe .det-head .icon { font-size: 2.2rem; }
+.detalhe h2 { font-family:"Luckiest Guy",cursive; color: var(--navy); margin:0; font-size: clamp(1.4rem,3.5vw,2rem); }
+.status-badge { padding:4px 14px; border-radius:999px; color:#fff; font-weight:700; font-size:.75rem; text-transform:uppercase; letter-spacing:1px;}
+.status-passada { background:#9a8f6b; }
+.status-atual   { background: var(--red); }
+.status-futura  { background: var(--blue); }
+
+.chave-grid { display:grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 22px; margin-top: 18px; }
+.chave-box h4 { color: var(--red); text-transform:uppercase; letter-spacing:1px; margin: 0 0 10px; }
+
+table.standings { width:100%; border-collapse: collapse; background:#fff; border-radius:12px; overflow:hidden; }
+table.standings th { background: var(--navy); color:#fff; padding:8px 10px; text-align:left; font-size:.85rem; }
+table.standings td { padding:8px 10px; border-bottom:1px solid #eee; }
+table.standings tr:last-child td { border-bottom:none; }
+table.standings .pos { font-family:"Luckiest Guy",cursive; color:var(--navy); width:34px; }
+table.standings .pts { font-weight:700; text-align:right; color: var(--red); }
+table.standings tr.qualif { background:#eaf7ea; }
+table.standings tr.pnc { background:#f3e9fa; font-style: italic; }
+.medal { margin-right: 4px; }
+.dot { width:10px; height:10px; border-radius:50%; display:inline-block; margin-right:6px; vertical-align:middle; }
+
+.tag-pnc { background: var(--purple); color:#fff; font-size:.68rem; padding:2px 8px; border-radius:999px; margin-left:6px; }
+
+.finalists { display:flex; flex-direction:column; gap:10px; }
+.finalist-row { display:flex; align-items:center; gap:10px; background:#fff; border:2px solid #eee; border-radius:10px; padding:8px 12px; }
+.finalist-row .seed { font-family:"Luckiest Guy",cursive; color:var(--navy); min-width:26px; }
+
+.empty-note {
+  background:#fff8e1; border:2px dashed var(--yellow); border-radius:12px;
+  padding:14px 16px; color:#6b5f3e; font-weight:500;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  display:inline-block; background: var(--red); color:#fff; text-decoration:none;
+  font-weight:700; padding: 12px 24px; border-radius: 999px; border:3px solid #fff;
+  box-shadow: var(--shadow); cursor:pointer; font-family: inherit; font-size:1rem;
+  transition: transform .1s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn.navy { background: var(--navy); }
+.btn.green { background: var(--green); }
+
+/* ---------- Footer ---------- */
+.footer {
+  background: var(--navy); color:#fff; text-align:center; padding: 26px 18px;
+  border-top: 5px solid var(--yellow);
+}
+.footer .display { color: var(--yellow); font-size:1.2rem; }
+.footer p { margin: 6px 0; opacity:.9; }
+
+/* ---------- Flyer embed ---------- */
+.flyer-embed { text-align:center; margin: 26px 0; }
+.flyer-embed img { max-width: 420px; width:100%; border-radius: 16px; border:5px solid #fff; box-shadow: var(--shadow); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 680px) {
+  .timeline { grid-template-columns: 1fr; }
+  .timeline-col.proximas { text-align:left; }
+  .timeline-col.proximas .fase-card { flex-direction: row; text-align:left; }
+  .timeline-col.proximas h3::after { content:""; }
+  .timeline-col.proximas h3::before { content:"➡️ "; }
+  .brand .display { font-size: 1rem; }
+  .nav-inner { gap: 4px; }
+  .nav a.link { padding: 6px 10px; font-size:.9rem; }
+}

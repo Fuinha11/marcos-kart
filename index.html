@@ -1,0 +1,121 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Marcos Kart — Wii Familii</title>
+<meta name="description" content="1º Torneio Internacional, Intercontinental e Inter-essante de Marcos Kart — Wii Familii." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+
+<div class="checkers"></div>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="logo">🏎️</span>
+      <span>
+        <span class="logo-sub">WII FAMILII</span><br />
+        <span class="display">MARCOS KART</span>
+      </span>
+    </a>
+    <a class="link active" href="index.html">Início</a>
+    <a class="link" href="regras.html">Regras</a>
+    <a class="link" href="competidores.html">Competidores</a>
+    <a class="link" href="fases.html">Fases</a>
+  </div>
+</nav>
+
+<div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="kicker">A WII FAMILII CONVIDA A FAMÍLIA PARA O</span>
+    <h1>
+      <span class="t1">PRIMEIRO TORNEIO INTERNACIONAL,</span>
+      <span class="t2">INTERCONTINENTAL E</span>
+      <span class="t3">INTER-ESSANTE DE</span>
+      <span class="t-marcos display"><span class="w">MARCOS</span> <span class="k">KART</span></span>
+    </h1>
+    <p class="tagline">Acelere, derrape e divirta-se! Que vença o melhor piloto da Wii Familii! 🏁</p>
+  </section>
+
+  <!-- INFO -->
+  <section class="info-grid">
+    <div class="info-card">
+      <h3>📍 Local</h3>
+      <div class="big" id="local"></div>
+    </div>
+    <div class="info-card">
+      <h3>📅 Data</h3>
+      <div class="big" id="data"></div>
+    </div>
+    <div class="info-card">
+      <h3>🕒 Horários (abertura)</h3>
+      <div id="horarios"></div>
+    </div>
+  </section>
+
+  <!-- SOBRE -->
+  <section class="section">
+    <h2 class="section-title">A Competição</h2>
+    <p class="section-sub">Duas fases de grupo, duas fases finais e muita casca de banana.</p>
+    <div class="cards">
+      <div class="card">
+        <h3>🌍 Dois continentes, dois grupos</h3>
+        <p>O <b>Grupo Recolonial</b> (quem tá na Europa) e a <b>Defensoria das Origens</b> (o hu3 hu3 brasileiro) disputam suas próprias fases. Os melhores se encontram nas finais.</p>
+      </div>
+      <div class="card">
+        <h3>🏁 3 copas por fase</h3>
+        <p>Cada fase tem <b>3 torneios</b> com a cilindrada aumentando: Cogumelo 1-Up, Flor de Fogo e a <b>Copa Secreta</b>. São 12 corridas somando pontos.</p>
+      </div>
+      <div class="card">
+        <h3>🏆 Soma de pontos</h3>
+        <p>Somamos os pontos de <b>todos os torneios</b> para definir o vencedor. Pontuação estilo Mario Kart 8: 1º=15, 2º=12, 3º=10…</p>
+      </div>
+      <div class="card">
+        <h3>🐢 Regra do azarão</h3>
+        <p>O <b>último colocado</b> do torneio anterior escolhe qual será o <b>próximo torneio</b>. Perder também tem seus poderes.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AS 3 COPAS -->
+  <section class="section">
+    <h2 class="section-title">As 3 Copas</h2>
+    <p class="section-sub">Com a cilindrada alamentando 🔧</p>
+    <div class="copas" id="copas"></div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="text-align:center">
+    <a class="btn" href="fases.html">Ver as fases &amp; chaves 🏁</a>
+    <a class="btn navy" href="regras.html">Ler o regulamento da CARÁI 🏛️</a>
+    <div class="flyer-embed">
+      <!-- Salve o flyer como assets/flyer.png para ele aparecer aqui -->
+      <img src="assets/flyer.png" alt="Flyer do Marcos Kart" onerror="this.parentNode.style.display='none'" />
+    </div>
+  </section>
+
+</div>
+
+<footer class="footer">
+  <div class="display">QUE VENÇA O MELHOR PILOTO DA WII FAMILII!</div>
+  <p>Marcos Kart · 1º Torneio Internacional, Intercontinental e Inter-essante 🏎️💨</p>
+</footer>
+
+<script src="js/data.js"></script>
+<script>
+  document.getElementById("local").textContent = TORNEIO.local;
+  document.getElementById("data").textContent = TORNEIO.data;
+  document.getElementById("horarios").innerHTML = TORNEIO.horarios
+    .map((h) => `<div class="time-row ${h.pais.toLowerCase()}"><span class="flag">${h.flag}</span><span class="hr">${h.hora}</span> <span>${h.pais}</span></div>`)
+    .join("");
+  document.getElementById("copas").innerHTML = COPAS_TEMPLATE
+    .map((c, i) => `
+      <div class="copa ${c.classe}">
+        <div class="num">${i + 1}º</div>
+        <div class="icon">${c.icon}</div>
+        <div><b>${c.nome}</b></div>
+        <div class="cc">${c.cc}</div>
+      </div>`)
+    .join("");
+</script>

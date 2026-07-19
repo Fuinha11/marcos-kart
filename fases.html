@@ -1,0 +1,55 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Fases — Marcos Kart</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+
+<div class="checkers"></div>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="logo">🏎️</span>
+      <span><span class="logo-sub">WII FAMILII</span><br /><span class="display">MARCOS KART</span></span>
+    </a>
+    <a class="link" href="index.html">Início</a>
+    <a class="link" href="regras.html">Regras</a>
+    <a class="link" href="competidores.html">Competidores</a>
+    <a class="link active" href="fases.html">Fases</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <h1 class="section-title" style="text-align:center">Fases do Torneio</h1>
+  <p class="section-sub" style="text-align:center">
+    ⬅️ Fases passadas · Fase atual em destaque · Próximas fases ➡️ — clique numa fase para abrir a chave.
+  </p>
+
+  <!-- FASE ATUAL EM DESTAQUE -->
+  <div id="destaque-atual"></div>
+
+  <!-- TIMELINE -->
+  <div class="timeline">
+    <div class="timeline-col passadas">
+      <h3>Passadas</h3>
+      <div id="col-passadas"></div>
+    </div>
+    <div class="timeline-col proximas">
+      <h3>Próximas</h3>
+      <div id="col-proximas"></div>
+    </div>
+  </div>
+
+  <!-- DETALHE / CHAVE -->
+  <div id="detalhe"></div>
+</div>
+
+<footer class="footer">
+  <div class="display">A CHAVE ESTÁ NA PISTA</div>
+  <p>Marcos Kart · Wii Familii 🏁</p>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/fases.js"></script>

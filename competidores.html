@@ -1,0 +1,60 @@
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Competidores — Marcos Kart</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
+
+<div class="checkers"></div>
+<nav class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html">
+      <span class="logo">🏎️</span>
+      <span><span class="logo-sub">WII FAMILII</span><br /><span class="display">MARCOS KART</span></span>
+    </a>
+    <a class="link" href="index.html">Início</a>
+    <a class="link" href="regras.html">Regras</a>
+    <a class="link active" href="competidores.html">Competidores</a>
+    <a class="link" href="fases.html">Fases</a>
+  </div>
+</nav>
+
+<div class="wrap">
+  <h1 class="section-title" style="text-align:center">Os Pilotos</h1>
+  <p class="section-sub" style="text-align:center">Dois grupos, dois continentes, um sofá cada. 🛋️</p>
+
+  <div id="grupos"></div>
+</div>
+
+<footer class="footer">
+  <div class="display">GRID DE LARGADA</div>
+  <p>Marcos Kart · Wii Familii 🏎️</p>
+</footer>
+
+<script src="js/data.js"></script>
+<script src="js/engine.js"></script>
+<script>
+  const container = document.getElementById("grupos");
+  Object.values(GRUPOS).forEach((g) => {
+    const pilotos = COMPETIDORES.filter((c) => c.grupo === g.id && c.participa !== false);
+    const cards = pilotos.map((p) => {
+      const tbd = p.nome === "A definir" ? "tbd" : "";
+      return `
+        <div class="card pilot" style="--pcolor:${p.cor}">
+          <div class="avatar">${p.emoji}</div>
+          <div class="nome ${tbd}">${p.nome}${p.anfitriao ? " 🎙️" : ""}</div>
+          <div class="personagem">${p.personagem}</div>
+          <div class="grp-badge ${g.classe}">${g.nome}</div>
+        </div>`;
+    }).join("");
+
+    container.insertAdjacentHTML("beforeend", `
+      <div class="group-header">
+        <span class="tag" style="background:${g.cor}">${g.nome}</span>
+        <span style="color:#6b5f3e">${g.lema}</span>
+      </div>
+      <div class="cards">${cards}</div>
+    `);
+  });
+</script>
