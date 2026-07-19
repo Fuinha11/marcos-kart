@@ -226,8 +226,8 @@ const FASES = [
     // Classificados vêm dos top 3 de cada grupo (calculado automaticamente).
     // Defina os PNCs escolhidos por cada grupo no início desta fase:
     pncs: {
-      recolonial: null,  // ex.: "rec6"
-      defensoria: null,  // ex.: "def7"
+      recolonial: "rec5",  // Rafael — PNC do Grupo Recolonial
+      defensoria: null,    // ex.: "def7"
     },
     copas: [
       { ...COPAS_FINAL[0], corridas: [] },
@@ -246,7 +246,7 @@ const FASES = [
     descricao: "Todos os que sobraram + os 2 PNCs. Disputa pelo título de menos BUNDA (Brincalhão Unânimemente Nomeado Durante Acordo).",
     quando: { data: "A definir", horarios: [] },
     pncs: {
-      recolonial: null,
+      recolonial: "rec5",  // Rafael — PNC do Grupo Recolonial
       defensoria: null,
     },
     copas: [
