@@ -123,6 +123,56 @@ function classificadosFinal(fase) {
   return out;
 }
 
+/* ------------------------------------------------------------
+   Ranking de UM torneio (copa) específico de uma fase.
+   Usado pelas abas da chave (1º/2º/3º torneio).
+   ------------------------------------------------------------ */
+function rankingPorCopa(fase, idx) {
+  const pncs = pncsDaFase(fase);
+  const map = {};
+  const corridas = (fase.copas[idx] && fase.copas[idx].corridas) || [];
+  corridas.forEach((ordem) => {
+    ordem.forEach((id, pos) => {
+      if (!map[id]) map[id] = { comp: getComp(id), pontos: 0, vitorias: 0, corridas: 0, isPNC: pncs.includes(id) };
+      map[id].pontos += map[id].isPNC ? 0 : pontosPosicao(pos);
+      map[id].corridas += 1;
+      if (pos === 0) map[id].vitorias += 1;
+    });
+  });
+  return Object.values(map).sort((a, b) => {
+    if (b.pontos !== a.pontos) return b.pontos - a.pontos;
+    if (b.vitorias !== a.vitorias) return b.vitorias - a.vitorias;
+    return a.comp.nome.localeCompare(b.comp.nome);
+  });
+}
+
+/* ------------------------------------------------------------
+   CLASSIFICAÇÃO GERAL do torneio (todas as fases somadas).
+   Critérios de ordenação:
+     1º) melhor colocação alcançada nas fases (menor = melhor)
+     2º) pontos totais somados (desempate)
+   ------------------------------------------------------------ */
+function classificacaoGeral() {
+  const acc = {};
+  FASES.forEach((fase) => {
+    if (corridasLancadas(fase) === 0) return;
+    calcularFase(fase).ranking.forEach((r, i) => {
+      const id = r.comp.id;
+      if (!acc[id]) acc[id] = { comp: r.comp, pontosTotais: 0, melhorPos: Infinity, fases: 0 };
+      acc[id].pontosTotais += r.pontos;
+      acc[id].fases += 1;
+      if (!r.isPNC && i + 1 < acc[id].melhorPos) acc[id].melhorPos = i + 1;
+    });
+  });
+  const list = Object.values(acc);
+  list.forEach((a) => { if (a.melhorPos === Infinity) a.melhorPos = 99; });
+  list.sort((a, b) => {
+    if (a.melhorPos !== b.melhorPos) return a.melhorPos - b.melhorPos; // 1º critério
+    return b.pontosTotais - a.pontosTotais;                            // desempate
+  });
+  return list;
+}
+
 /* Medalha por posição (para as tabelas) */
 function medalha(pos) {
   return ["🥇", "🥈", "🥉"][pos] || "";

@@ -65,11 +65,14 @@ const COMPETIDORES = [
   { id: "def7", nome: "A definir", personagem: "Bowser Jr.",   emoji: "🖌️", cor: "#ef6c00", grupo: "defensoria" },
 ];
 
-/* --- Modelo das 3 copas de cada fase (cilindrada aumentando) --- */
+/* --- Modelo dos 3 torneios de cada fase ---
+   Os torneios NÃO são pré-definidos: são escolhidos na hora
+   (o último colocado do torneio anterior escolhe o próximo).
+   O que muda de forma fixa é a CILINDRADA, que vai aumentando. */
 const COPAS_TEMPLATE = [
-  { nome: "Copa Cogumelo 1-Up", cc: "150cc",   icon: "🍄", classe: "" },
-  { nome: "Copa Flor de Fogo",  cc: "200cc",   icon: "🌸", classe: "" },
-  { nome: "Copa Secreta",       cc: "???",     icon: "❓", classe: "secreta" },
+  { nome: "A escolher na hora", cc: "100cc", icon: "🎲", classe: "secreta" },
+  { nome: "A escolher na hora", cc: "150cc", icon: "🎲", classe: "secreta" },
+  { nome: "A escolher na hora", cc: "200cc", icon: "🎲", classe: "secreta" },
 ];
 
 /* ============================================================
