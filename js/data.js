@@ -65,13 +65,20 @@ const COMPETIDORES = [
   { id: "def7", nome: "A definir", personagem: "Bowser Jr.",   emoji: "🖌️", cor: "#ef6c00", grupo: "defensoria" },
 ];
 
-/* --- Modelo dos 3 torneios de cada fase ---
+/* --- Modelos dos 3 torneios de cada fase ---
    Os torneios NÃO são pré-definidos: são escolhidos na hora
    (o último colocado do torneio anterior escolhe o próximo).
-   O que muda de forma fixa é a CILINDRADA, que vai aumentando. */
-const COPAS_TEMPLATE = [
+   O que muda é a CILINDRADA, que aumenta; o 3º é sempre surpresa.
+   - Fases de grupo: 100 → 150 → surpresa
+   - Fases finais:   150 → 200 → surpresa                        */
+const COPAS_GRUPO = [
   { nome: "A escolher na hora", cc: "100cc",       icon: "🎲", classe: "secreta" },
   { nome: "A escolher na hora", cc: "150cc",       icon: "🎲", classe: "secreta" },
+  { nome: "A escolher na hora", cc: "cc surpresa", icon: "❓", classe: "secreta" },
+];
+const COPAS_FINAL = [
+  { nome: "A escolher na hora", cc: "150cc",       icon: "🎲", classe: "secreta" },
+  { nome: "A escolher na hora", cc: "200cc",       icon: "🎲", classe: "secreta" },
   { nome: "A escolher na hora", cc: "cc surpresa", icon: "❓", classe: "secreta" },
 ];
 
@@ -106,19 +113,19 @@ const FASES = [
       ],
     },
     copas: [
-      { ...COPAS_TEMPLATE[0], corridas: [
+      { ...COPAS_GRUPO[0], corridas: [
         ["rec1","rec3","rec2","rec5","rec4","rec6"],
         ["rec2","rec1","rec4","rec3","rec6","rec5"],
         ["rec3","rec2","rec1","rec6","rec5","rec4"],
         ["rec1","rec2","rec3","rec4","rec5","rec6"],
       ]},
-      { ...COPAS_TEMPLATE[1], corridas: [
+      { ...COPAS_GRUPO[1], corridas: [
         ["rec2","rec3","rec1","rec5","rec6","rec4"],
         ["rec1","rec4","rec2","rec3","rec5","rec6"],
         ["rec4","rec1","rec3","rec2","rec6","rec5"],
         ["rec2","rec1","rec5","rec3","rec4","rec6"],
       ]},
-      { ...COPAS_TEMPLATE[2], corridas: [
+      { ...COPAS_GRUPO[2], corridas: [
         ["rec1","rec2","rec4","rec3","rec6","rec5"],
         ["rec3","rec1","rec2","rec4","rec5","rec6"],
         ["rec2","rec4","rec1","rec6","rec3","rec5"],
@@ -145,14 +152,14 @@ const FASES = [
       ],
     },
     copas: [
-      { ...COPAS_TEMPLATE[0], corridas: [
+      { ...COPAS_GRUPO[0], corridas: [
         ["def1","def2","def3","def4","def5","def6","def7"],
         ["def2","def1","def4","def3","def6","def5","def7"],
         ["def3","def2","def1","def5","def4","def7","def6"],
         ["def1","def3","def2","def6","def5","def4","def7"],
       ]},
-      { ...COPAS_TEMPLATE[1], corridas: [] }, // ainda não disputada
-      { ...COPAS_TEMPLATE[2], corridas: [] }, // ainda não disputada
+      { ...COPAS_GRUPO[1], corridas: [] }, // ainda não disputada
+      { ...COPAS_GRUPO[2], corridas: [] }, // ainda não disputada
     ],
   },
 
@@ -172,9 +179,9 @@ const FASES = [
       defensoria: null,  // ex.: "def7"
     },
     copas: [
-      { ...COPAS_TEMPLATE[0], corridas: [] },
-      { ...COPAS_TEMPLATE[1], corridas: [] },
-      { ...COPAS_TEMPLATE[2], corridas: [] },
+      { ...COPAS_FINAL[0], corridas: [] },
+      { ...COPAS_FINAL[1], corridas: [] },
+      { ...COPAS_FINAL[2], corridas: [] },
     ],
   },
 
@@ -192,9 +199,9 @@ const FASES = [
       defensoria: null,
     },
     copas: [
-      { ...COPAS_TEMPLATE[0], corridas: [] },
-      { ...COPAS_TEMPLATE[1], corridas: [] },
-      { ...COPAS_TEMPLATE[2], corridas: [] },
+      { ...COPAS_FINAL[0], corridas: [] },
+      { ...COPAS_FINAL[1], corridas: [] },
+      { ...COPAS_FINAL[2], corridas: [] },
     ],
   },
 ];

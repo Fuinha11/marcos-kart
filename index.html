@@ -65,7 +65,7 @@
       </div>
       <div class="card">
         <h3>🎲 3 torneios por fase</h3>
-        <p>Cada fase tem <b>3 torneios escolhidos na hora</b> — a <b>cilindrada aumenta</b> (100 → 150 cc) e a do <b>3º torneio é surpresa</b>. São 12 corridas somando pontos.</p>
+        <p>Cada fase tem <b>3 torneios escolhidos na hora</b> (12 corridas somando pontos). A <b>cilindrada aumenta</b> e o <b>3º torneio é sempre surpresa</b>: grupos 100→150→❓, finais 150→200→❓.</p>
       </div>
       <div class="card">
         <h3>🏆 Soma de pontos</h3>
@@ -81,8 +81,11 @@
   <!-- AS 3 COPAS -->
   <section class="section">
     <h2 class="section-title">Os 3 Torneios</h2>
-    <p class="section-sub">Escolhidos na hora — só a cilindrada vai alamentando 🔧</p>
+    <p class="section-sub">Escolhidos na hora — a cilindrada vai alamentando 🔧 (fases de grupo)</p>
     <div class="copas" id="copas"></div>
+    <p style="text-align:center; margin-top:16px; color:#6b5f3e">
+      🏆 Nas <b>fases finais</b> a cilindrada sobe mais: <b>150cc → 200cc → ❓ surpresa</b>.
+    </p>
   </section>
 
   <!-- CTA -->
@@ -109,7 +112,7 @@
   document.getElementById("horarios").innerHTML = TORNEIO.horarios
     .map((h) => `<div class="time-row ${h.pais.toLowerCase()}"><span class="flag">${h.flag}</span><span class="hr">${h.hora}</span> <span>${h.pais}</span></div>`)
     .join("");
-  document.getElementById("copas").innerHTML = COPAS_TEMPLATE
+  document.getElementById("copas").innerHTML = COPAS_GRUPO
     .map((c, i) => `
       <div class="copa ${c.classe}">
         <div class="num">${i + 1}º</div>
